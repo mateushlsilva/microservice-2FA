@@ -1,9 +1,9 @@
 from flask import Flask
+from models.index import connection
 
 app = Flask(__name__)
 
 import routes.index 
-from models.index import connection
 
 
 
