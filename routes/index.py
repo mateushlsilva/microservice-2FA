@@ -1,5 +1,6 @@
 from __main__ import app
 from models.index import connection
+from blueprint.email import email
 
 @app.route('/')
 def index():
@@ -23,3 +24,20 @@ def index():
     }
     db.auth2fa.insert_many([item_1,item_2])
     return "oi"
+
+@app.route('/contribua', methods=["GET", "POST"])
+def contribua():
+    resultado = None
+    
+   
+
+    e = email()
+    if e == True:
+        resultado = 'Email enviado!'
+        return resultado
+    if e == False:
+        resultado = 'Verfique se os campos foram colocados com informações corretas!'
+    else:
+        resultado = 'Verfique se os campos foram colocados com informações corretas!'
+    return resultado
+

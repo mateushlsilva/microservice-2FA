@@ -1,5 +1,7 @@
 from flask import Flask
 from models.index import connection
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 

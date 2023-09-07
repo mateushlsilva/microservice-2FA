@@ -4,7 +4,7 @@ def connection():
     try:
         URI = 'mongodb://172.17.0.1:27017'
         client = MongoClient(URI)
-        db = client['auth2fa']  
+        db = client['auth']  
         print("Conexão bem-sucedida ao MongoDB")
         return db
     except Exception as e:
