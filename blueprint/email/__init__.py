@@ -1,4 +1,5 @@
 import os
+from blueprint.generate2FA import generate
 
 def email_host_outlook(adm, senha, destinatario, subject, corpo):
     """
@@ -40,6 +41,7 @@ def email_host_outlook(adm, senha, destinatario, subject, corpo):
     except smtplib.SMTPAuthenticationError:
         erro = 'ERRO! Por favor desative o recurso de segurança do seu email!'
         return erro
+        
         # construir o email tipo MINE
     else:
         corpo1 = f"{corpo}"
@@ -59,14 +61,28 @@ def email_host_outlook(adm, senha, destinatario, subject, corpo):
 
 
 				
-def email():
+def email(userEmail):
+    from models import insert2FAEmail
     try:
-        email = 'novos_colaboradores@outlook.com'
+        generate2fa = generate()
+        email = os.getenv("email")
         ddd = os.getenv("senha")
-        corpo = f"""A pessoa teste, com o email: teste está interessada em contribuir no 			projeto."""
+        corpo = f"""
+            <p>Olá,</p>
 
-        d = 'mateushls01@gmail.com'
-        email_host_outlook(email, ddd, d, 'Pedido de colaboração', corpo)
+            <p>Este é o seu código de autenticação de 2FA: </p>
+            <br/>
+            <h1>{generate2fa}</h1>
+            <br/>
+            <p>Use este código para concluir o processo de autenticação de dois fatores em nossa aplicação.</p>
+
+            <p>Atenciosamente,</p>
+            <p>APP</p>
+        """
+
+        
+        email_host_outlook(email, ddd, userEmail, 'Authenticator 2FA', corpo)
+        insert2FAEmail(userEmail, generate2fa)
         return True
     except AttributeError:
         return False
