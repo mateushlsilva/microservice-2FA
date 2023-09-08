@@ -1,6 +1,9 @@
 from __main__ import app
+
+from flask import jsonify
 from models import connection
 from blueprint.email import email
+from models import getAuth
 
 @app.route('/')
 def index():
@@ -39,3 +42,6 @@ def enviarEmail(emailUser):
         resultado = 'Verfique se os campos foram colocados com informações corretas!'
     return resultado
 
+@app.route('/auth2fa/getEmail/<email>/<cod>')
+def getCod2FA(email, cod):
+    return jsonify(getAuth(email, 'email', cod)) # Vai retornar null se não encontrar 

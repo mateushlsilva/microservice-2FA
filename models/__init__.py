@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import json
 
 def connection():
     try:
@@ -24,3 +25,18 @@ def insert2FAEmail(email, cod2FA):
     except Exception as e:
         return False
     return True
+
+def getAuth(element, type, cod):
+    from bson import json_util
+
+    """
+    -> Faz a procura no mongo!
+    :param element: O que eu estou procurando 
+    :param type: O tipo dele ex: email
+    :param cod: Código 2FA
+    """
+    db = connection()
+    if type == 'email':
+        get = db.auth.find_one({"email": element, "cod2FA": cod})
+        print(get)
+    return json.loads(json_util.dumps(get))
