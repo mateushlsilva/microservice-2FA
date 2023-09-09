@@ -45,3 +45,18 @@ def enviarEmail(emailUser):
 @app.route('/auth2fa/getEmail/<email>/<cod>')
 def getCod2FA(email, cod):
     return jsonify(getAuth(email, 'email', cod)) # Vai retornar null se não encontrar 
+
+
+@app.route('/auth2fa_sms/<number>', methods=["GET", "POST"])
+def enviarSMS(number):
+    from blueprint.sms import sms
+    smsEnvia = sms(number)
+    if smsEnvia == True:
+        return jsonify({"status": 200, "message": "SMS enviado!"})
+    else:
+        return jsonify({"status": 400, "message": "SMS não enviado"})
+    
+
+@app.route('/auth2fa/getSMS/<sms>/<cod>')
+def getCod2FASMS(sms, cod):
+    return jsonify(getAuth(sms, 'sms', cod)) # Vai retornar null se não encontrar 
