@@ -3,7 +3,7 @@ import json
 
 def connection():
     try:
-        URI = 'mongodb://localhost:27017'
+        URI = 'mongodb://db:27017'
         client = MongoClient(URI)
         db = client['auth']  
         print("Conexão bem-sucedida ao MongoDB")

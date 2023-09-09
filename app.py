@@ -1,7 +1,6 @@
 from flask import Flask
 from models import connection
 from dotenv import load_dotenv
-from blueprint.sms import sms
 load_dotenv()
 
 app = Flask(__name__)
@@ -12,5 +11,5 @@ import routes.index
 
 if __name__ == "__main__":
     connection()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)
 
