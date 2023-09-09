@@ -1,7 +1,7 @@
 from flask import Flask
 from models import connection
 from dotenv import load_dotenv
-from blueprint.generate2FA import generate
+from blueprint.sms import sms
 load_dotenv()
 
 app = Flask(__name__)
