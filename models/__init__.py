@@ -4,7 +4,7 @@ import os
 
 def connection():
     try:
-        URI = os
+        URI = os.getenv("MONGO_URL")
         client = MongoClient(URI)
         db = client['auth']  
         print("Conexão bem-sucedida ao MongoDB")
